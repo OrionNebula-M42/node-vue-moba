@@ -6,7 +6,16 @@
             <el-input v-model="model.name"></el-input>
         </el-form-item>
         <el-form-item label="图标">
-            <el-input v-model="model.icon"></el-input>
+            <el-upload
+                class="avatar-uploader"
+                :action="uploadUrl" 
+                :show-file-list="false"
+                :on-success="afterUpload"
+                :headers="getAuthHeaders()"
+                >
+                <img v-if="model.icon" :src="model.icon" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
         </el-form-item>
         <el-form-item >
             <el-button type="primary" native-type="submit"> 
@@ -31,6 +40,13 @@ export default {
         }
     },
     methods: {
+        afterUpload(res) {
+            
+            this.$set(this.model, 'icon', res.url)
+            this.model.icon = res.url
+
+            console.log("afterUpload==",this.model.icon)
+        },
         async save() {
             let res 
             if(this.id) {
@@ -57,3 +73,8 @@ export default {
     },
 }
 </script>
+
+
+<style>
+
+</style>

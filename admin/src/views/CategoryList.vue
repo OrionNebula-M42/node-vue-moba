@@ -26,7 +26,7 @@ export default {
     methods: {
         async fetch() {
             const res = await this.$http.get('rest/categories')
-            console.log("row res2==",res)
+            console.log("分类列表==",res)
             this.items = res.data
         },
         remove(row) {
